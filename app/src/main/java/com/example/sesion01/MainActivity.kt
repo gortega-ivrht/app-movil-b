@@ -31,39 +31,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        Toast.makeText(this,"onCreate",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onCreate")
     }
 
-    override fun onStart() {
-        super.onStart()
-        Toast.makeText(this,"onStart",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(this,"onResume",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Toast.makeText(this,"onPause",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Toast.makeText(this,"onStop",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Toast.makeText(this,"onDestroy",Toast.LENGTH_SHORT).show()
-        Log.d("MainActivity","onDestroy")
-    }
 }
 
 @Composable
