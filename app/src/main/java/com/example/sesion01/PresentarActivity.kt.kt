@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.example.sesion01.pantallas.PantallaEventosTres
 import com.example.sesion01.pantallas.Presentar
 import com.example.sesion01.ui.theme.Sesion01Theme
 
@@ -21,10 +22,39 @@ class PresentarActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Presentar()
+                    /*Presentar()
+                    PantallaEventosOrdenado()
+                    PantallaEventosDos()*/
+                    PantallaEventosTres()
                 }
             }
         }
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this,"Presentar onStart", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this,"Presentar onResume", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this,"Presentar onPause", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this,"Presentar onStop", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(this,"Presentar onDestroy", Toast.LENGTH_SHORT).show()
     }
 
 }

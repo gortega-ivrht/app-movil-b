@@ -33,6 +33,33 @@ class MainActivity : ComponentActivity() {
 
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(this,"MAIN onStart", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(this,"MAIN onResume", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Toast.makeText(this,"MAIN onPause", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Toast.makeText(this,"MAIN onStop", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(this,"MAIN onDestroy", Toast.LENGTH_SHORT).show()
+    }
+
+
 }
 
 @Composable
