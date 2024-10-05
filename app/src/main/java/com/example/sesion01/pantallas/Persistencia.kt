@@ -1,5 +1,7 @@
 package com.example.sesion01.pantallas
 
+import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,14 +22,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.sesion01.CursoresListaActivity
 import com.example.sesion01.viewmodel.UserViewModel
 
 @Composable
 fun Persistencia(userViewModel: UserViewModel){
+    val context = LocalContext.current
 
     var name by remember { mutableStateOf("USUARIO") }
     val userList by userViewModel.userList.collectAsState()
+    var showSuccessMessage by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         userViewModel.loadUser()
@@ -49,6 +56,7 @@ fun Persistencia(userViewModel: UserViewModel){
                 if (name.isNotBlank()){
                     userViewModel.insertUser(name)
                     name= ""
+                    showSuccessMessage = true
                 }
             }
         ) {
@@ -57,10 +65,39 @@ fun Persistencia(userViewModel: UserViewModel){
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        LazyColumn {
+        /*LazyColumn {
             items(userList){
                 user -> Text(user.name)
             }
+        }*/
+
+        //sesion6: Mostrar mensaje temporal de éxito
+        if (showSuccessMessage){
+            Text(
+                text = "Usuario agregado correctamente",
+                color = Color.Green,
+                modifier = Modifier.padding(8.dp)
+            )
+
+            LaunchedEffect(Unit) {
+                kotlinx.coroutines.delay(2000)
+                showSuccessMessage = false
+            }
         }
+
+        //sesion6: botón para ver la lista de usuarios
+        Button(
+            onClick = {
+                Log.d("PantallaPersistencia","Ver lista de usuarios")
+                val intent = Intent(
+                    context,
+                    CursoresListaActivity:: class.java
+                )
+                context.startActivity(intent)
+            }
+        ) {
+            Text("Listado de Usuarios")
+        }
+
     }
 }

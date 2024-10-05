@@ -3,4 +3,5 @@
     <string name="title_activity_test3">test3</string>
     <string name="title_activity_presentar">presentar</string>
     <string name="title_activity_persistencia">PersistenciaActivity</string>
+    <string name="title_activity_cursores_lista">CursoresListaActivity</string>
 </resources>

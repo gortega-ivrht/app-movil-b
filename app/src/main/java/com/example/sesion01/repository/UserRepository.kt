@@ -12,4 +12,8 @@ class UserRepository (private val userDao: UserDao){
     fun getAllUsers():List<User>{
         return userDao.getAllUsers()
     }
+
+    fun getUsersFilter(nameFilter:String):List<User>{
+        return userDao.getUsersFilter(nameFilter)
+    }
 }
