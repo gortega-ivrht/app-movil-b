@@ -33,5 +33,19 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
             _userList.value = userRepository.getUsersFilter(nameFilter)
         }
     }
+
+    fun updateUser(id:Long, newName: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.updateUser(id,newName)
+            loadUser() // Refrescar la lista después de la actualización
+        }
+    }
+
+    fun deleteUser(id: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.deleteUser(id)
+            loadUser() // Refrescar la lista después de eliminar
+        }
+    }
 }
 

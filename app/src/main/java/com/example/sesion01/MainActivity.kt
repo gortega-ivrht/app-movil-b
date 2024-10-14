@@ -28,7 +28,15 @@ class MainActivity : ComponentActivity() {
         val userViewModel = UserViewModel(userRepository)
 
         setContent {
-            Persistencia(userViewModel)
+            Sesion01Theme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    //Persistencia(userViewModel)
+                    PantallaPrincipal()
+                }
+            }
         }
 
     }

@@ -11,15 +11,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.sesion01.data.db.UserDao
+import com.example.sesion01.pantallas.Persistencia
+import com.example.sesion01.repository.UserRepository
 import com.example.sesion01.ui.theme.Sesion01Theme
+import com.example.sesion01.viewmodel.UserViewModel
 
 class PersistenciaActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val userDao = UserDao(this)
+        val userRepository = UserRepository(userDao)
+        val userViewModel = UserViewModel(userRepository)
+
         setContent {
             Sesion01Theme {
-
+                Persistencia(userViewModel)
             }
         }
     }
