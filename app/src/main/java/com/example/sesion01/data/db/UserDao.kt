@@ -50,7 +50,7 @@ class UserDao (context: Context){
 
         // gean, Pedro, maria, mafer, matia, marycielo, romario = mar
 
-        val projection = arrayOf("id","name")
+        val projection = arrayOf("id","name","email")
         val selection = "name LIKE ?"
         val selectionArgs = arrayOf("$nameFilter%")
         val sortOrder = "id DESC"
@@ -69,9 +69,10 @@ class UserDao (context: Context){
                 //lógica recuperar la info
                 val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
 
                 // Procesar los datos obtenidos
-                users.add(User(id, name))
+                users.add(User(id, name, email))
             } while (cursor.moveToNext())
         }
         return users
