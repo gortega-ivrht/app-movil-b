@@ -3,6 +3,7 @@ package com.example.sesion01.data.db
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.util.Log
 import com.example.sesion01.data.model.User
 
 class UserDao (context: Context){
@@ -50,32 +51,42 @@ class UserDao (context: Context){
 
         // gean, Pedro, maria, mafer, matia, marycielo, romario = mar
 
-        val projection = arrayOf("id","name","email")
+        val projection = arrayOf("id","name","email","phone")
         val selection = "name LIKE ?"
         val selectionArgs = arrayOf("$nameFilter%")
         val sortOrder = "id DESC"
 
-        val cursor : Cursor = db.query("users",
-                                projection,
-                                selection,
-                                selectionArgs,
-                                null,
-                                null,
-                                sortOrder)
+        try {
+            val cursor : Cursor = db.query("users",
+                projection,
+                selection,
+            selectionArgs,
+            null,
+            null,
+            sortOrder)
+            Log.d("SEGUIMIENTO", cursor.toString())
+            if (cursor.moveToFirst()){
+                do {
+                    //lógica recuperar la info
+                    val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
+                    val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
+                    val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
+                    val phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"))
 
+                    // Procesar los datos obtenidos
+                    users.add(User(id, name, email,phone))
+                } while (cursor.moveToNext())
+            }
+            return users
 
-        if (cursor.moveToFirst()){
-            do {
-                //lógica recuperar la info
-                val id = cursor.getLong(cursor.getColumnIndexOrThrow("id"))
-                val name = cursor.getString(cursor.getColumnIndexOrThrow("name"))
-                val email = cursor.getString(cursor.getColumnIndexOrThrow("email"))
-
-                // Procesar los datos obtenidos
-                users.add(User(id, name, email))
-            } while (cursor.moveToNext())
+        }catch (e: Exception){
+            Log.d("SEGUIMIENTO", e.toString())
+            return users
         }
-        return users
+
+
+
+
     }
 
     fun updateUser(id: Long, newName: String): Int{
