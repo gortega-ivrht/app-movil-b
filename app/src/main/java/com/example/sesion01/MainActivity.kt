@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.sesion01.data.db.UserDao
+import com.example.sesion01.pantallas.PantallaLogin
 import com.example.sesion01.pantallas.PantallaPrincipal
 import com.example.sesion01.pantallas.Persistencia
 import com.example.sesion01.repository.UserRepository
@@ -23,7 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val  userDao = UserDao(this)
+        val userDao = UserDao(this)
         val userRepository = UserRepository(userDao)
         val userViewModel = UserViewModel(userRepository)
 
@@ -34,7 +35,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     //Persistencia(userViewModel)
-                    PantallaPrincipal()
+                    /*PantallaPrincipal()*/
+                    PantallaLogin(userViewModel)
                 }
             }
         }

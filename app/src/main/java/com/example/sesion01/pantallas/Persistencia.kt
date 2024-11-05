@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.sesion01.CursoresListaActivity
 import com.example.sesion01.viewmodel.UserViewModel
@@ -33,6 +34,9 @@ fun Persistencia(userViewModel: UserViewModel){
     val context = LocalContext.current
 
     var name by remember { mutableStateOf("USUARIO") }
+    var email by remember { mutableStateOf("EMAIL") }
+    var phone by remember { mutableStateOf("123") }
+    var password by remember { mutableStateOf("123") }
     val userList by userViewModel.userList.collectAsState()
     var showSuccessMessage by remember { mutableStateOf(false) }
 
@@ -51,10 +55,29 @@ fun Persistencia(userViewModel: UserViewModel){
             modifier = Modifier.padding(16.dp)
         )
 
+        BasicTextField(
+            value = email,
+            onValueChange = {email = it},
+            modifier = Modifier.padding(16.dp)
+        )
+
+        BasicTextField(
+            value = phone,
+            onValueChange = {phone = it},
+            modifier = Modifier.padding(16.dp)
+        )
+
+        BasicTextField(
+            value = password,
+            onValueChange = {password = it},
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.padding(16.dp)
+        )
+
         Button(
             onClick = {
                 if (name.isNotBlank()){
-                    userViewModel.insertUser(name)
+                    userViewModel.insertUser(name,email,phone,password)
                     name= ""
                     showSuccessMessage = true
                 }
@@ -80,7 +103,7 @@ fun Persistencia(userViewModel: UserViewModel){
             )
 
             LaunchedEffect(Unit) {
-                kotlinx.coroutines.delay(2000)
+                kotlinx.coroutines.delay(5000)
                 showSuccessMessage = false
             }
         }

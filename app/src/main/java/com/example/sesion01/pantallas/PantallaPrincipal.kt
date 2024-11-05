@@ -39,7 +39,7 @@ fun PantallaPrincipal(){
             Text(text = "Continuar", style = MaterialTheme.typography.bodyLarge)
         }
 
-        OutlinedButton(onClick = {
+        /*OutlinedButton(onClick = {
             Log.d("PantallaPrincipal","Click en el botón")
             val intent = Intent(
                 contex,
@@ -48,7 +48,7 @@ fun PantallaPrincipal(){
             contex.startActivity(intent)
         }) {
             Text(text = "PERSISTENCIA", style = MaterialTheme.typography.bodyLarge)
-        }
+        }*/
     }
     
 }

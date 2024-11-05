@@ -25,6 +25,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sesion01.data.model.User
@@ -64,7 +65,7 @@ fun PantallaCursores(viewModel: UserViewModel){
         LazyColumn(modifier = Modifier.fillMaxSize()) { 
             items(users) {
                 user -> UserRow(user,
-                    onUpdate = {id,name -> viewModel.updateUser(id, name)},
+                    onUpdate = {id,name,email,phone,password -> viewModel.updateUser(id, name,email,phone,password)},
                     onDelete = {id -> viewModel.deleteUser(id)}
                 )
             }
@@ -75,10 +76,13 @@ fun PantallaCursores(viewModel: UserViewModel){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserRow(user: User, onUpdate : (Long,String) -> Unit, onDelete: (Long) -> Unit) {
+fun UserRow(user: User, onUpdate : (Long,String,String,String,String) -> Unit, onDelete: (Long) -> Unit) {
 
     var isEditing by remember { mutableStateOf(false) }
     var updateName by remember { mutableStateOf(user.name) }
+    var updateEmail by remember { mutableStateOf(user.email) }
+    var updatePhone by remember { mutableStateOf(user.phone) }
+    var updatePassword by remember { mutableStateOf(user.password) }
 
     Row(
         modifier = Modifier
@@ -97,9 +101,29 @@ fun UserRow(user: User, onUpdate : (Long,String) -> Unit, onDelete: (Long) -> Un
                 textStyle = LocalTextStyle.current.copy(fontSize = 10.sp)
             )
 
+            TextField(
+                value = updateEmail,
+                onValueChange = {updateEmail = it},
+                modifier = Modifier.weight(2f),
+                textStyle = LocalTextStyle.current.copy(fontSize = 10.sp)
+            )
+            TextField(
+                value = updatePhone,
+                onValueChange = {updatePhone = it},
+                modifier = Modifier.weight(2f),
+                textStyle = LocalTextStyle.current.copy(fontSize = 10.sp)
+            )
+            TextField(
+                value = updatePassword,
+                onValueChange = {updatePassword = it},
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier.weight(2f),
+                textStyle = LocalTextStyle.current.copy(fontSize = 10.sp)
+            )
+
             Button(
                 onClick = {
-                    onUpdate(user.id,updateName)
+                    onUpdate(user.id,updateName,updateEmail,updatePhone,updatePassword)
                     isEditing = false
                 },
                 modifier = Modifier.padding(start = 4.dp),
@@ -123,6 +147,7 @@ fun UserRow(user: User, onUpdate : (Long,String) -> Unit, onDelete: (Long) -> Un
             Text(text = user.name, modifier = Modifier.weight(2f))
             Text(text = user.email, modifier = Modifier.weight(2f))
             Text(text = user.phone, modifier = Modifier.weight(2f))
+            Text(text = user.password, modifier = Modifier.weight(2f))
 
             Button(
                 onClick = { isEditing = true},

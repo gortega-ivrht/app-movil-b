@@ -29,6 +29,7 @@ class PersistenciaActivity : ComponentActivity() {
         setContent {
             Sesion01Theme {
                 Persistencia(userViewModel)
+                /*Text("Hola")*/
             }
         }
     }

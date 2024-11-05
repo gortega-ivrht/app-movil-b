@@ -13,9 +13,9 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
     private val _userList = MutableStateFlow<List<User>>(emptyList())
     val userList = _userList.asStateFlow()
 
-    fun insertUser(name:String){
+    fun insertUser(name:String,email:String,phone:String,password:String){
         viewModelScope.launch (Dispatchers.IO){
-            val newUser = User(name= name)
+            val newUser = User(name= name, email = email, phone = phone, password = password)
             userRepository.insertUser(newUser)
 
             _userList.value = userRepository.getAllUsers()
@@ -34,9 +34,9 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
         }
     }
 
-    fun updateUser(id:Long, newName: String){
+    fun updateUser(id:Long, newName: String, newEmail:String,newPhone:String, newPassword:String){
         viewModelScope.launch(Dispatchers.IO) {
-            userRepository.updateUser(id,newName)
+            userRepository.updateUser(id,newName,newEmail,newPhone,newPassword)
             loadUser() // Refrescar la lista después de la actualización
         }
     }
@@ -46,6 +46,11 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
             userRepository.deleteUser(id)
             loadUser() // Refrescar la lista después de eliminar
         }
+    }
+
+    fun loginUser(email:String,password:String):Boolean{
+        var login = userRepository.loginUser(email,password)
+        return login
     }
 }
 
